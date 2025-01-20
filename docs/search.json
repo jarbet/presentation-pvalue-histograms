@@ -1,0 +1,107 @@
+[
+  {
+    "objectID": "index.html#motivation",
+    "href": "index.html#motivation",
+    "title": "P-value histograms",
+    "section": "Motivation",
+    "text": "Motivation\n\nProject with a large number of hypothesis tests/pvalues\nHistogram of p-values gives a lot of info about your study\nIs there any signal in your study?\nAre there any problems with the analyses you did?\nSummarize the key results of (Breheny 2018)"
+  },
+  {
+    "objectID": "index.html#hypothesis-testing",
+    "href": "index.html#hypothesis-testing",
+    "title": "P-value histograms",
+    "section": "Hypothesis testing",
+    "text": "Hypothesis testing\n\nNull hypothesis (\\(H_0\\))\n\nNo difference between groups\nNo relationship between variables\n\\(\\theta = \\theta_0\\)\n\n\n\nAlternative hypothesis (\\(H_A\\))\n\nThe groups differ\nThere is a relationship between variables\n\\(\\theta \\neq \\theta_0\\)"
+  },
+  {
+    "objectID": "index.html#what-is-a-p-value",
+    "href": "index.html#what-is-a-p-value",
+    "title": "P-value histograms",
+    "section": "What is a p-value?",
+    "text": "What is a p-value?"
+  },
+  {
+    "objectID": "index.html#when-h_0-is-always-true",
+    "href": "index.html#when-h_0-is-always-true",
+    "title": "P-value histograms",
+    "section": "When \\(H_0\\) is always true",
+    "text": "When \\(H_0\\) is always true\nFlat/uniform distribution:"
+  },
+  {
+    "objectID": "index.html#when-h_a-is-sometimes-true",
+    "href": "index.html#when-h_a-is-sometimes-true",
+    "title": "P-value histograms",
+    "section": "When \\(H_A\\) is sometimes true",
+    "text": "When \\(H_A\\) is sometimes true\nDecreasing slope from left to right:"
+  },
+  {
+    "objectID": "index.html#is-there-any-signal-in-the-data",
+    "href": "index.html#is-there-any-signal-in-the-data",
+    "title": "P-value histograms",
+    "section": "Is there any signal in the data?",
+    "text": "Is there any signal in the data?\n\n(Rogier et al. 2014) mouse study where 201 genes were tested for differential expression\nNo hypothesis rejected at the 10% false discovery rate level\nHowever, pvalue histogram suggests a signal, but the study design was underpowered to detect it:"
+  },
+  {
+    "objectID": "index.html#regular-pvalue-histogram",
+    "href": "index.html#regular-pvalue-histogram",
+    "title": "P-value histograms",
+    "section": "“Regular” pvalue histogram",
+    "text": "“Regular” pvalue histogram\n(Breheny 2018) define a regular pvalue histogram as the 2 scenarios we’ve seen so far:\n\nFlat/uniform (\\(H_0\\) is always true)\nSlopes down left-to-right (\\(H_A\\) is sometimes true)\n\n\nA regular pvalue histogram suggests no errors in your study/analysis , although you might still be underpowered"
+  },
+  {
+    "objectID": "index.html#irregular-pvalue-histogram",
+    "href": "index.html#irregular-pvalue-histogram",
+    "title": "P-value histograms",
+    "section": "“Irregular pvalue histogram”",
+    "text": "“Irregular pvalue histogram”\n(Breheny 2018) define an irregular pvalue histogram as any other shape, for example in (Fischl et al. 2014):\n\n\n\n\n\nAn irregular pvalue histogram suggests a problem in your study or analysis, for example:\n\nMeasurement error\nParametric assumptions are wrong\nCorrelated pvalues (not a major problem, but need special coniderations which we’ll come back to)"
+  },
+  {
+    "objectID": "index.html#formal-test-for-signal",
+    "href": "index.html#formal-test-for-signal",
+    "title": "P-value histograms",
+    "section": "Formal test for signal",
+    "text": "Formal test for signal\n\nLet \\(\\tau\\) be the observed number of pvalues&lt; 0.05\nUse a 1-sided Binomial test to see if \\(\\tau\\) is greater than what we’d except assuming \\(H_0\\) is always true\n\\(m\\) = number of tests\n\\(b\\) = bin width of left-most bin (e.g. b = 0.05)\nThen the 95th percentile of a \\(Bin(m, b)\\) distribution serves as a cutoff for the test\nThus if \\(\\tau &gt; Bin_{.95}(m, b)\\), we have evidence for a signal"
+  },
+  {
+    "objectID": "index.html#example",
+    "href": "index.html#example",
+    "title": "P-value histograms",
+    "section": "Example",
+    "text": "Example\n\nRecall the study of (Rogier et al. 2014) where 201 genes were tested but min FDR \\(&gt; 0.10\\)\nbin-width: \\(b = 0.05\\)\n\\(m\\) = 201 tests\nThen \\(Bin_{.95}(m, b)\\) =\n\n\n\nqbinom(p = 0.95, size = 201, prob = 0.05);\n\n[1] 15\n\n\n\nThe study observed 27 p &lt; 0.05, which exceeds the null cutoff, thus giving evidence of signal:"
+  },
+  {
+    "objectID": "index.html#qc-test-for-irregular-pvalue-histogram",
+    "href": "index.html#qc-test-for-irregular-pvalue-histogram",
+    "title": "P-value histograms",
+    "section": "QC test for irregular pvalue histogram",
+    "text": "QC test for irregular pvalue histogram\n\nThe same idea can be used to test for departures from uniformity anywhere between 0 and 1, not only near 0\nA binwidth of 0.05 gives 20 bins, and thus a corrected \\(\\alpha= 0.05/20 = 0.0025\\), or the \\(Bin_{.9975}(m, b)\\) percentile\n\n\nExample:\n\nRecall the study of (Fischl et al. 2014)\n\\(m\\) = 23,332 tests\nbin-width: \\(b = 0.05\\)\nBonferroni corrected null threshold is:\n\n\n\n\nqbinom(p = 0.9975, size = 23332, prob = 0.05);\n\n[1] 1261"
+  },
+  {
+    "objectID": "index.html#correlated-pvalues",
+    "href": "index.html#correlated-pvalues",
+    "title": "P-value histograms",
+    "section": "Correlated pvalues",
+    "text": "Correlated pvalues\n\nAll previous results assume the pvalues are independent\nRarely true for cancer ’omic studies (e.g. correlated genes)\n\n\n(Breheny 2018) propose a permutation method for the previous signal and QC tests that accounts for correlation:\n\nFor example, test association between outcome \\(Y\\) with gene expression matrix \\(X\\)\n\n\nPermute \\(Y\\) to remove relationship between \\(Y\\) and \\(X\\) while preserving the correlation structure of \\(X\\)\nRerun all tests on permuted dataset and record the pvalues\n\nObtains p-values from the null distribution without assuming independence\n\nRecord the count in the most highest bin from (2)\nRepeat (1-3) 1000 times\nThe permutation-corrected QC cutoff is the 95th percentile of the distribution in (4)\n\nSimilarly, the get the permutation-corrected signal cutoff, you’d record the number of p&lt;0.05 in each permutation dataset, then use the 95th percentile of this distribution."
+  },
+  {
+    "objectID": "index.html#example-1",
+    "href": "index.html#example-1",
+    "title": "P-value histograms",
+    "section": "Example:",
+    "text": "Example:\n\nUnpublished gene expression study\np-value histogram suggests a problem, but note many genes are correlated\n\n\n\n\n\n\nThe permutation-corrected QC cutoff suggests there is no problem in the study:"
+  },
+  {
+    "objectID": "index.html#summary",
+    "href": "index.html#summary",
+    "title": "P-value histograms",
+    "section": "Summary",
+    "text": "Summary\n\nFlat pvalue histogram suggests \\(H_0\\) always true\nSlopes down left-to-right suggests \\(H_A\\) sometimes true\n\nBinomial test for signal: far-left bin deviate from \\(H_0\\)?\nIf no tests significant after multiple testing correction, but the Binomial test is significant for an overall signal, this suggests your study was underpowered.\n\nIrregular histograms suggest problem with analysis/study\n\nQC binomial test: does any area of hist deviate from \\(H_0\\)?\nTry a robust nonparametric method instead\nCheck measurement error or problems in study design\n\nIn practice, apply the signal and QC tests assuming independence. If you exceed either threshold, try the permutation method to confirm."
+  },
+  {
+    "objectID": "index.html#r-function",
+    "href": "index.html#r-function",
+    "title": "P-value histograms",
+    "section": "R function",
+    "text": "R function\n\n\npvalue.histogram &lt;- function(\n    pvalues, # vector of pvalues\n    b = 0.05, # width of each bin in histogram\n    alpha = 0.05, # significance level of signal test\n    ... # other args to create.histogram\n    ) {\n    stopifnot(all(is.numeric(pvalues)) & all(pvalues &gt; 0) & all (pvalues &lt; 1));\n    stopifnot(length(b) == 1 & is.numeric(b) & b &gt;= 0 & b &lt;= 0.2);\n\n    p.df &lt;- data.frame(p = pvalues);\n    m &lt;- sum(!is.na(pvalues));\n    signal.cutoff &lt;- qbinom(\n        p = 1 - alpha,\n        size = m,\n        prob = b\n        );\n    qc.cutoff &lt;- qbinom(\n        p = 1 - alpha / (1 / b),\n        size = m,\n        prob = b\n        );\n    BoutrosLab.plotting.general::create.histogram(\n        x = p.df$p,\n        ylab.label = 'Frequency',\n        xlab.label = 'pvalues',\n        breaks = seq(0, 1, by = b),\n        type = 'count',\n        abline.h = c(signal.cutoff, qc.cutoff),\n        abline.col = c('red', 'blue'),\n        abline.lwd = 3\n        );\n    }\n\n# Example:\nset.seed(123);\npvals &lt;- c(\n    runif(20, 0, 0.001),\n    runif(80)\n    );\npvalue.histogram(pvals);\n\n\n\n\nSignal and QC thresholds"
+  }
+]

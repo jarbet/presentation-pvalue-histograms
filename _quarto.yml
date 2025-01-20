@@ -1,0 +1,17 @@
+project:
+  type: website
+  output-dir: docs
+website:
+  title: "presentation-pvalue-histogram"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: index.qmd
+        text: Presentation
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
