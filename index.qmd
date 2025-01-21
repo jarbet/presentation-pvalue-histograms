@@ -1,6 +1,6 @@
 ---
 title: 'P-value histograms'
-author: "[Jaron Arbet]{style='color: steelblue;'}"
+author: "[Jaron Arbet]{style='color: #4682B4;'}"
 subtitle: 'Is there any signal in your study?<br>Or problems with your analysis?'
 date: '2025-01-03'
 format: 
@@ -17,7 +17,7 @@ library(BoutrosLab.plotting.general);
 library(fontawesome);
 seed <- 1234;
 
-colorize <- function(x, color = '#6082B6') {
+colorize <- function(x, color = '#4682B4') {
 #3 https://bookdown.org/yihui/rmarkdown-cookbook/font-color.html#using-an-r-function-to-write-raw-html-or-latex-code
   if (knitr::is_latex_output()) {
     sprintf("\\textcolor{%s}{%s}", color, x)
@@ -31,17 +31,17 @@ colorize <- function(x, color = '#6082B6') {
 
 ## Motivation
 
-- Project with a large number of hypothesis tests/pvalues
+- Project with large number of hypothesis tests
 - Histogram of p-values gives a lot of info about your study
-- Is there any signal in your study?
-- Are there any problems with the analyses you did?
+- Any **`r colorize('signal')`** in your study?
+- **`r colorize('Quality control: ')`** any problems with the study design or analysis?
 - Summarize the key results of [@breheny2018p]
 
 ## Hypothesis testing
 
 . . .
 
-**Null hypothesis ($H_0$)**
+**`r colorize('Null hypothesis')` ($H_0$)**
 
 * No difference between groups
 * No relationship between variables
@@ -50,7 +50,7 @@ colorize <- function(x, color = '#6082B6') {
 . . .
 
 
-**Alternative hypothesis ($H_A$)**
+**`r colorize('Alternative hypothesis')` ($H_A$)**
 
 * The groups differ
 * There is a relationship between variables
@@ -60,7 +60,7 @@ colorize <- function(x, color = '#6082B6') {
 
 . . .
 
-![](./figures/pvalue.jpg)
+![](./figures/pvalue.jpg){width=80%}
 
 
 ## When $H_0$ is always true
@@ -100,17 +100,17 @@ create.histogram(
 q <- p.adjust(pvals$p, method = 'fdr');
 ```
 
-## Is there any signal in the data?
+## Is there any `r colorize('signal')` in the data?
 
-* [@rogier2014] mouse study where 201 genes were tested for differential expression
-* No hypothesis rejected at the 10% false discovery rate level
-* However, pvalue histogram suggests a signal, but the study design was underpowered to detect it:
+* [@rogier2014] mouse study with 201 genes
+* No hypothesis rejected at 10% false discovery rate level
+* pvalue histogram suggests signal, study underpowered:
 
 . . .
 
 :::{.column-body-outset}
 
-![](./figures/signal_lowpower.png){width=70%}
+![](./figures/signal_lowpower.png){width=40%}
 :::
 
 ## "Regular" pvalue histogram
@@ -124,35 +124,48 @@ q <- p.adjust(pvals$p, method = 'fdr');
 
 A regular pvalue histogram suggests no errors in your study/analysis `r fa('fas fa-circle-check')`, although you might still be underpowered
 
-## "Irregular pvalue histogram"
+## "Irregular" pvalue histogram
 
 [@breheny2018p] define an **irregular** pvalue histogram as any other shape, for example in [@fischl2014activity]: 
 
 . . . 
 
-:::{.column-body-outset} 
-![](./figures/irregular_pvalue_hist.png){width=80%}
-:::
+:::: {.columns} 
 
-* An irregular pvalue histogram suggests a problem in your study or analysis, for example:
+  
 
-   + Measurement error
-   + Parametric assumptions are wrong
-   + Correlated pvalues (not a major problem, but need special coniderations which we'll come back to)
+::: {.column width="45%" .fragment} 
+![](./figures/irregular_pvalue_hist.png){width=110%}
+::: 
 
-## Formal test for signal
+  
+
+::: {.column width="55%" .fragment} 
+
+Suggests a problem in your study or analysis:
+
+* Measurement error
+* Parametric assumptions wrong
+* Correlated pvalues (not major problem, need special considerations which we'll come back to)
+
+::: 
+
+:::: 
 
 
-* Let $\tau$ be the observed number of pvalues< 0.05
-* Use a 1-sided Binomial test to see if $\tau$ is greater than what we'd except assuming $H_0$ is always true
+## Formal test for `r colorize('signal')`
+
+
+* Let $\tau$ be the observed number of pvalues < 0.05
+* 1-sided Binomial test: is $\tau$ greater than what's expected assuming $H_0$ is always true?
 * $m$ = number of tests
-* $b$ = bin width of left-most bin (e.g. b = 0.05)
-* Then the 95th percentile of a $Bin(m, b)$ distribution serves as a cutoff for the test
+* $b$ = bin width of left-most bin (*e.g.* b = 0.05)
+* Then 95th percentile of $Bin(m, b)$ is cutoff for the test
 * Thus if $\tau > Bin_{.95}(m, b)$, we have evidence for a signal
 
 ## Example
 
-* Recall the study of [@rogier2014] where 201 genes were tested but min FDR $> 0.10$
+* Recall [@rogier2014] where 201 genes were tested but min FDR $> 0.10$
 * bin-width: $b = 0.05$
 * $m$ = 201 tests
 * Then $Bin_{.95}(m, b)$ =
@@ -171,10 +184,10 @@ qbinom(p = 0.95, size = 201, prob = 0.05);
 ![](./figures/rogier_with_cutoff.png){width=70%}
 :::
 
-## QC test for irregular pvalue histogram
+## `r colorize('QC test')` for irregular pvalue histogram
 
-* The same idea can be used to test for departures from uniformity anywhere between 0 and 1, not only near 0
-* A binwidth of 0.05 gives 20 bins, and thus a corrected $\alpha= 0.05/20 = 0.0025$, or the $Bin_{.9975}(m, b)$ percentile 
+* The same idea can be used to test departures from uniformity anywhere between 0 and 1, not only near 0
+* A binwidth of 0.05 gives 20 bins, and Bonferroni corrected $\alpha= 0.05/20 = 0.0025$, or the $Bin_{.9975}(m, b)$ percentile 
 
 . . .
 
@@ -209,36 +222,35 @@ qbinom(p = 0.9975, size = 23332, prob = 0.05);
     + Obtains p-values from the null distribution without assuming independence
 3. Record the count in the most highest bin from (2)
 4. Repeat (1-3) 1000 times
-5. The permutation-corrected QC cutoff is the 95th percentile of the distribution in (4)
-    + Similarly, the get the permutation-corrected signal cutoff, you'd record the number of p<0.05 in each permutation dataset, then use the 95th percentile of this distribution.
+5. The permutation-corrected **`r colorize('QC cutoff')`** is the 95th percentile of the distribution in (4)
+    + Similarly, for the permutation-corrected **`r colorize('signal cutoff')`**, record the number of p<0.05 in each permutation dataset, then use 95th percentile of this distribution.
 
 ## Example:
 
-* Unpublished gene expression study
-* p-value histogram suggests a problem, but note many genes are correlated
+Unpublished gene expression study
 
 . . .
 
-:::{.column-body-outset}
-![](./figures/unpublished_qc_problem.png){width=70%}
-:::
+:::: {.columns}
+::: {.column width="50%" .fragment}
+Histogram suggests problem, but genes are correlated:
+![](./figures/unpublished_qc_problem.png){width=100%}
+::: 
 
+::: {.column width="50%" .fragment} 
+Permutation-corrected QC cutoff suggests no problem:
+![](./figures/permuted_qc.png){width=100%}
+::: 
 
-* The permutation-corrected QC cutoff suggests there is no problem in the study:
-
-. . .
-
-:::{.column-body-outset}
-![](./figures/permuted_qc.png){width=70%}
-:::
+:::: 
 
 ## Summary
 
-* **`r colorize('Flat')`** pvalue histogram suggests $H_0$ always true
-* **`r colorize('Slopes down left-to-right')`** suggests $H_A$ sometimes true
+* **`r colorize('Flat')`** pvalue histogram `r fa('arrow-right')` $H_0$ always true
+* **`r colorize('Slopes down left-to-right')`** `r fa('arrow-right')` $H_A$ sometimes true
     + **`r colorize('Binomial test for signal')`**: far-left bin deviate from $H_0$?
     + If no tests significant after multiple testing correction, but the Binomial test is significant for an overall signal, this suggests your study was underpowered.
-* **`r colorize('Irregular histograms')`** suggest problem with analysis/study
+* **`r colorize('Irregular histograms')`** `r fa('arrow-right')` problem with analysis/study
     + **`r colorize('QC binomial test')`**: does *any* area of hist deviate from $H_0$?
     + Try a robust nonparametric method instead
     + Check measurement error or problems in study design
@@ -247,7 +259,9 @@ qbinom(p = 0.9975, size = 23332, prob = 0.05);
 
 ## R function
 
-:::{.column-body-outset}
+:::: {.columns} 
+
+::: {.column width="50%" .fragment} 
 
 ```{r, echo = TRUE}
 pvalue.histogram <- function(
@@ -282,7 +296,15 @@ pvalue.histogram <- function(
         abline.lwd = 3
         );
     }
+```
 
+::: 
+
+::: {.column width="50%" .fragment} 
+
+```{r, echo = TRUE}
+#| fig.width: 12
+#| fig.height: 6
 # Example:
 set.seed(123);
 pvals <- c(
@@ -294,6 +316,8 @@ pvalue.histogram(pvals);
 
 **[Signal]{style='color: red;'}** and **[QC]{style='color: blue;'}** thresholds
 
-:::
+::: 
+:::: 
+
 
 # References
