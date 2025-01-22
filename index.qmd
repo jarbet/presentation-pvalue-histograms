@@ -34,7 +34,7 @@ colorize <- function(x, color = '#4682B4') {
 - Project with large number of hypothesis tests
 - Histogram of p-values gives a lot of info about your study
 - Any **`r colorize('signal')`** in your study?
-- **`r colorize('Quality control: ')`** any problems with the study design or analysis?
+- **`r colorize('Quality control: ')`** any problems with study design or analysis?
 - Summarize the key results of [@breheny2018p]
 
 ## Hypothesis testing
@@ -104,14 +104,21 @@ q <- p.adjust(pvals$p, method = 'fdr');
 
 * [@rogier2014] mouse study with 201 genes
 * No hypothesis rejected at 10% false discovery rate level
-* pvalue histogram suggests signal, study underpowered:
 
-. . .
+:::: {.columns} 
 
-:::{.column-body-outset}
+::: {.column width="50%" .fragment}
+![](./figures/signal_lowpower.png){width=100%}
+::: 
 
-![](./figures/signal_lowpower.png){width=40%}
-:::
+::: {.column width="50%" .fragment} 
+
+<br>
+<br>
+
+pvalue histogram suggests signal, but study was underpowered
+::: 
+:::: 
 
 ## "Regular" pvalue histogram
 
@@ -165,7 +172,7 @@ Suggests a problem in your study or analysis:
 
 ## Example
 
-* Recall [@rogier2014] where 201 genes were tested but min FDR $> 0.10$
+* Recall [@rogier2014] 201 genes with min FDR $> 0.10$
 * bin-width: $b = 0.05$
 * $m$ = 201 tests
 * Then $Bin_{.95}(m, b)$ =
@@ -181,7 +188,7 @@ qbinom(p = 0.95, size = 201, prob = 0.05);
 . . .
 
 :::{.column-body-outset} 
-![](./figures/rogier_with_cutoff.png){width=70%}
+![](./figures/rogier_with_cutoff.png){width=60%}
 :::
 
 ## `r colorize('QC test')` for irregular pvalue histogram

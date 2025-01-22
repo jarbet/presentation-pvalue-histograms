@@ -4,7 +4,7 @@
     "href": "index.html#motivation",
     "title": "P-value histograms",
     "section": "Motivation",
-    "text": "Motivation\n\nProject with large number of hypothesis tests\nHistogram of p-values gives a lot of info about your study\nAny signal in your study?\nQuality control:  any problems with the study design or analysis?\nSummarize the key results of (Breheny 2018)"
+    "text": "Motivation\n\nProject with large number of hypothesis tests\nHistogram of p-values gives a lot of info about your study\nAny signal in your study?\nQuality control:  any problems with study design or analysis?\nSummarize the key results of (Breheny 2018)"
   },
   {
     "objectID": "index.html#hypothesis-testing",
@@ -39,7 +39,7 @@
     "href": "index.html#is-there-any-signal-in-the-data",
     "title": "P-value histograms",
     "section": "Is there any signal in the data?",
-    "text": "Is there any signal in the data?\n\n(Rogier et al. 2014) mouse study with 201 genes\nNo hypothesis rejected at 10% false discovery rate level\npvalue histogram suggests signal, study underpowered:"
+    "text": "Is there any signal in the data?\n\n(Rogier et al. 2014) mouse study with 201 genes\nNo hypothesis rejected at 10% false discovery rate level\n\n\n\n\n\n \npvalue histogram suggests signal, but study was underpowered"
   },
   {
     "objectID": "index.html#regular-pvalue-histogram",
@@ -67,7 +67,7 @@
     "href": "index.html#example",
     "title": "P-value histograms",
     "section": "Example",
-    "text": "Example\n\nRecall (Rogier et al. 2014) where 201 genes were tested but min FDR \\(&gt; 0.10\\)\nbin-width: \\(b = 0.05\\)\n\\(m\\) = 201 tests\nThen \\(Bin_{.95}(m, b)\\) =\n\n\n\nqbinom(p = 0.95, size = 201, prob = 0.05);\n\n[1] 15\n\n\n\nThe study observed 27 p &lt; 0.05, which exceeds the null cutoff, thus giving evidence of signal:"
+    "text": "Example\n\nRecall (Rogier et al. 2014) 201 genes with min FDR \\(&gt; 0.10\\)\nbin-width: \\(b = 0.05\\)\n\\(m\\) = 201 tests\nThen \\(Bin_{.95}(m, b)\\) =\n\n\n\nqbinom(p = 0.95, size = 201, prob = 0.05);\n\n[1] 15\n\n\n\nThe study observed 27 p &lt; 0.05, which exceeds the null cutoff, thus giving evidence of signal:"
   },
   {
     "objectID": "index.html#qc-test-for-irregular-pvalue-histogram",
