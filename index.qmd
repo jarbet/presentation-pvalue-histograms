@@ -2,7 +2,7 @@
 title: 'P-value histograms'
 author: "[Jaron Arbet]{style='color: #4682B4;'}"
 subtitle: 'Is there any signal in your study?<br>Or problems with your analysis?'
-date: '2025-01-03'
+date: '2025-01-23'
 format: 
   revealjs: 
     incremental: true
