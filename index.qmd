@@ -135,7 +135,6 @@ A regular pvalue histogram suggests no errors in your study/analysis `r fa('fas 
 
 [@breheny2018p] define an **irregular** pvalue histogram as any other shape, for example in [@fischl2014activity]: 
 
-. . . 
 
 :::: {.columns} 
 
@@ -236,7 +235,6 @@ qbinom(p = 0.9975, size = 23332, prob = 0.05);
 
 Unpublished gene expression study
 
-. . .
 
 :::: {.columns}
 ::: {.column width="50%" .fragment}

@@ -53,7 +53,7 @@
     "href": "index.html#irregular-pvalue-histogram",
     "title": "P-value histograms",
     "section": "“Irregular” pvalue histogram",
-    "text": "“Irregular” pvalue histogram\n(Breheny 2018) define an irregular pvalue histogram as any other shape, for example in (Fischl et al. 2014):\n\n\n\n\n\nSuggests a problem in your study or analysis:\n\nMeasurement error\nParametric assumptions wrong\nCorrelated pvalues (not major problem, need special considerations which we’ll come back to)"
+    "text": "“Irregular” pvalue histogram\n(Breheny 2018) define an irregular pvalue histogram as any other shape, for example in (Fischl et al. 2014):\n\n\n\n\nSuggests a problem in your study or analysis:\n\nMeasurement error\nParametric assumptions wrong\nCorrelated pvalues (not major problem, need special considerations which we’ll come back to)"
   },
   {
     "objectID": "index.html#formal-test-for-signal",
@@ -88,7 +88,7 @@
     "href": "index.html#example-1",
     "title": "P-value histograms",
     "section": "Example:",
-    "text": "Example:\nUnpublished gene expression study\n\n\n\nHistogram suggests problem, but genes are correlated: \n\nPermutation-corrected QC cutoff suggests no problem:"
+    "text": "Example:\nUnpublished gene expression study\n\n\nHistogram suggests problem, but genes are correlated: \n\nPermutation-corrected QC cutoff suggests no problem:"
   },
   {
     "objectID": "index.html#summary",
